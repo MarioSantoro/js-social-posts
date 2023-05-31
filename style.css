@@ -115,6 +115,13 @@ h1 {
     color: cyan;
 }
 
+.bg-grey{
+    background-color: grey;
+    color: white;
+    height: 60px;
+    width: 60px;
+}
+
 .like-button:not(.like-button--liked):hover {
     background-color: #e3e3e3
 }
@@ -126,4 +133,10 @@ h1 {
 .like-button--liked {
     color: #0CD977;
     cursor: default;
+}
+
+.flex{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

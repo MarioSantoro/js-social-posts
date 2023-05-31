@@ -38,7 +38,7 @@ const posts = [
         "media": "https://unsplash.it/600/400?image=24",
         "author": {
             "name": "Luca Formicola",
-            "image": "https://unsplash.it/300/300?image=20"
+            "image": null,
         },
         "likes": 56,
         "created": "2021-04-03"
@@ -61,7 +61,41 @@ posts.forEach((cardElement , index) => {
     let from=posts[index].created;
     let temp = from.split("-");
     let date =temp[2] + "-" + temp[1] + "-" + temp[0];
-    containerPost.innerHTML += 
+    if(posts[index].author.image === null){
+        let name = ExtratingFIrstCharAndLast(posts[index].author.name);
+        containerPost.innerHTML += 
+          `<div class="post">
+                <div class="post__header">
+                    <div class="post-meta">                    
+                        <div class="post-meta__icon custom-img">
+                            <div class="image-not-found profile-pic bg-grey flex">${name}</div>                   
+                        </div>
+                        <div class="post-meta__data">
+                            <div class="post-meta__author">${posts[index].author.name}</div>
+                            <div class="post-meta__time">${date}</div>
+                        </div>                    
+                    </div>
+                </div>
+                <div class="post__text">${posts[index].content}</div>
+                <div class="post__image">
+                    <img src="${posts[index].media}" alt="Foto">
+                </div>
+                <div class="post__footer">
+                    <div class="likes js-likes">
+                        <div class="likes__cta">
+                            <a class="like-button  js-like-button"  data-postid="1">
+                                <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                                <span class="like-button__label">Mi Piace</span>
+                            </a>
+                        </div>
+                        <div class="likes__counter">
+                            Piace a <b id="like-counter-${posts[index].id}" class="js-likes-counter">${posts[index].likes}</b> persone
+                         </div>
+                    </div> 
+                 </div>            
+            </div>`
+    }else{
+        containerPost.innerHTML += 
           `<div class="post">
                 <div class="post__header">
                     <div class="post-meta">                    
@@ -92,6 +126,8 @@ posts.forEach((cardElement , index) => {
                     </div> 
                  </div>            
             </div>`
+    }
+    
 });
 
 const buttonLikes = document.querySelectorAll("a.like-button");
@@ -122,5 +158,13 @@ buttonLikes.forEach((button , index) => {
 
 
 
-
+ function ExtratingFIrstCharAndLast(string) {
+    let names = string.split(' '),
+        initials = names[0].substring(0, 1).toUpperCase();
+    
+    if (names.length > 1) {
+        initials += names[names.length - 1].substring(0, 1).toUpperCase();
+    }
+    return initials;
+};
     
