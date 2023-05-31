@@ -58,6 +58,9 @@ const posts = [
 let ListPostLikes = [];
 const containerPost =  document.getElementById("container");
 posts.forEach((cardElement , index) => {
+    let from=posts[index].created;
+    let temp = from.split("-");
+    let date =temp[2] + "-" + temp[1] + "-" + temp[0];
     containerPost.innerHTML += 
           `<div class="post">
                 <div class="post__header">
@@ -67,7 +70,7 @@ posts.forEach((cardElement , index) => {
                         </div>
                         <div class="post-meta__data">
                             <div class="post-meta__author">${posts[index].author.name}</div>
-                            <div class="post-meta__time">${posts[index].created}</div>
+                            <div class="post-meta__time">${date}</div>
                         </div>                    
                     </div>
                 </div>
