@@ -93,14 +93,27 @@ posts.forEach((cardElement , index) => {
 
 const buttonLikes = document.querySelectorAll("a.like-button");
 
+
 buttonLikes.forEach((button , index) => {
+    let IsAlreadyClicked = false;
     button.style.cursor = "pointer";
     button.addEventListener("click" , function(){
-        button.style.color = "blue";
-        const counter = document.getElementById(`like-counter-${posts[index].id}`);
-        counter.innerHTML = posts[index].likes + 1;
-        ListPostLikes.push(posts[index].id);
-        console.log(ListPostLikes)
+        
+        if(!IsAlreadyClicked){
+            IsAlreadyClicked = true;
+            button.classList.add("color-blue");
+            const counter = document.getElementById(`like-counter-${posts[index].id}`);
+            counter.innerHTML = posts[index].likes + 1;
+            ListPostLikes.push(posts[index].id);
+            console.log(ListPostLikes);
+        }else{
+            const counter = document.getElementById(`like-counter-${posts[index].id}`);
+            counter.innerHTML = posts[index].likes;
+            button.classList.remove("color-blue");
+            console.log(ListPostLikes);
+            IsAlreadyClicked = false;
+        }
+        
     });
 });
 
