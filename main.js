@@ -58,75 +58,16 @@ const posts = [
 let ListPostLikes = [];
 const containerPost =  document.getElementById("container");
 posts.forEach((cardElement , index) => {
+    let imagePart = `<img class="profile-pic" src="${posts[index].author.image}" alt="${posts[index].author.name}"></img>`;
     let from=posts[index].created;
     let temp = from.split("-");
     let date =temp[2] + "-" + temp[1] + "-" + temp[0];
     if(posts[index].author.image === null){
         let name = ExtratingFIrstCharAndLast(posts[index].author.name);
-        containerPost.innerHTML += 
-          `<div class="post">
-                <div class="post__header">
-                    <div class="post-meta">                    
-                        <div class="post-meta__icon custom-img">
-                            <div class="image-not-found profile-pic bg-grey flex">${name}</div>                   
-                        </div>
-                        <div class="post-meta__data">
-                            <div class="post-meta__author">${posts[index].author.name}</div>
-                            <div class="post-meta__time">${date}</div>
-                        </div>                    
-                    </div>
-                </div>
-                <div class="post__text">${posts[index].content}</div>
-                <div class="post__image">
-                    <img src="${posts[index].media}" alt="Foto">
-                </div>
-                <div class="post__footer">
-                    <div class="likes js-likes">
-                        <div class="likes__cta">
-                            <a class="like-button  js-like-button"  data-postid="1">
-                                <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
-                                <span class="like-button__label">Mi Piace</span>
-                            </a>
-                        </div>
-                        <div class="likes__counter">
-                            Piace a <b id="like-counter-${posts[index].id}" class="js-likes-counter">${posts[index].likes}</b> persone
-                         </div>
-                    </div> 
-                 </div>            
-            </div>`
-    }else{
-        containerPost.innerHTML += 
-          `<div class="post">
-                <div class="post__header">
-                    <div class="post-meta">                    
-                        <div class="post-meta__icon">
-                            <img class="profile-pic" src="${posts[index].author.image}" alt="${posts[index].author.name}">                    
-                        </div>
-                        <div class="post-meta__data">
-                            <div class="post-meta__author">${posts[index].author.name}</div>
-                            <div class="post-meta__time">${date}</div>
-                        </div>                    
-                    </div>
-                </div>
-                <div class="post__text">${posts[index].content}</div>
-                <div class="post__image">
-                    <img src="${posts[index].media}" alt="Foto">
-                </div>
-                <div class="post__footer">
-                    <div class="likes js-likes">
-                        <div class="likes__cta">
-                            <a class="like-button  js-like-button"  data-postid="1">
-                                <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
-                                <span class="like-button__label">Mi Piace</span>
-                            </a>
-                        </div>
-                        <div class="likes__counter">
-                            Piace a <b id="like-counter-${posts[index].id}" class="js-likes-counter">${posts[index].likes}</b> persone
-                         </div>
-                    </div> 
-                 </div>            
-            </div>`
+        imagePart = `<div class="flex bg-grey profile-pic">${name}</div>`
     }
+        addPostOnDom(posts[index].author.name , date , posts[index].content , posts[index].media , posts[index].id , posts[index].likes , imagePart);
+    
     
 });
 
@@ -167,4 +108,38 @@ buttonLikes.forEach((button , index) => {
     }
     return initials;
 };
+
+function addPostOnDom(name , date , content , media , id , likes , imagePart){
+    containerPost.innerHTML += 
+          `<div class="post">
+                <div class="post__header">
+                    <div class="post-meta">                    
+                        <div class="post-meta__icon">
+                            ${imagePart}                    
+                        </div>
+                        <div class="post-meta__data">
+                            <div class="post-meta__author">${name}</div>
+                            <div class="post-meta__time">${date}</div>
+                        </div>                    
+                    </div>
+                </div>
+                <div class="post__text">${content}</div>
+                <div class="post__image">
+                    <img src="${media}" alt="Foto">
+                </div>
+                <div class="post__footer">
+                    <div class="likes js-likes">
+                        <div class="likes__cta">
+                            <a class="like-button  js-like-button"  data-postid="1">
+                                <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                                <span class="like-button__label">Mi Piace</span>
+                            </a>
+                        </div>
+                        <div class="likes__counter">
+                            Piace a <b id="like-counter-${id}" class="js-likes-counter">${likes}</b> persone
+                         </div>
+                    </div> 
+                 </div>            
+            </div>`
+}
     
